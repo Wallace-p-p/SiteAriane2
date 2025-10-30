@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <style>
+        :root {
+            /* Cores */
+            --header-bg-color: #7E8773;
+            --header-text-color: white;
+            --header-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --button-bg-color: #7E8773;
+            --button-text-color: white;
+            
+            /* Dimensões */
+            --header-height: 80px;
+            --header-height-mobile: 80px;
+            --logo-height: 50px;
+            --section-height: 90vh;
+            --section-min-height: 600px;
+            
+            /* Espaçamentos */
+            --header-padding-mobile: 12px 0;
+            --menu-item-padding: 10px 0;
+            --mobile-menu-item-padding: 15px 20px;
+            --section-padding: 40px 20px;
+            --button-padding: 15px 30px;
+            
+            /* Tipografia */
+            --menu-font-size: 16px;
+            --menu-toggle-size: 24px;
+            --title-font-size: 3rem;
+            --subtitle-font-size: 1.2rem;
+            --button-font-size: 1.1rem;
+            
+            /* Layout */
+            --nav-desktop-width: 60%;
+            --mobile-menu-position: 20px;
+            
+            /* Efeitos */
+            --hover-transition: all 0.3s ease;
+        }
+
+        /* Reset e estilos base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        /* HEADER - mantido igual */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--header-bg-color);
+            box-shadow: var(--header-shadow);
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: var(--header-height);
+            position: relative;
+        }
+
+        .nav-desktop {
+            display: flex;
+            align-items: center;
+            width: var(--nav-desktop-width);
+            justify-content: space-around;
+        }
+
+        .logo {
+            height: var(--logo-height);
+            width: auto;
+        }
+
+        .nav-desktop a {
+            text-decoration: none;
+            color: var(--header-text-color);
+            font-size: var(--menu-font-size);
+            padding: var(--menu-item-padding);
+            position: relative;
+            transition: var(--hover-transition);
+        }
+
+        .nav-desktop a:hover {
+            font-weight: bold;
+        }
+
+        .nav-desktop a:hover::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--header-text-color);
+        }
+
+        .nav-mobile {
+            display: none;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: var(--menu-toggle-size);
+            cursor: pointer;
+            position: absolute;
+            right: var(--mobile-menu-position);
+            color: var(--header-text-color);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: var(--header-bg-color);
+            box-shadow: var(--header-shadow);
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: var(--mobile-menu-item-padding);
+            text-decoration: none;
+            color: var(--header-text-color);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* SEÇÃO 1 - INÍCIO */
+        .section-hero {
+            height: var(--section-height);
+            min-height: var(--section-min-height);
+            display: flex;
+            flex-direction: column;
+            padding: var(--section-padding);
+            margin-top: var(--header-height);
+            background-image: url('images/bg1.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+
+        .hero-content {
+            flex: 1;
+            display: grid;
+            grid-template-rows: 1fr auto;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .hero-text-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .hero-title {
+            font-size: var(--title-font-size);
+            line-height: 1.2;
+            color: #333;
+            font-weight: normal;
+        }
+
+        .hero-title .bold {
+            font-weight: bold;
+        }
+
+        .hero-subtitle {
+            font-size: var(--subtitle-font-size);
+            color: #666;
+            margin-top: 20px;
+            line-height: 1.5;
+        }
+
+        .hero-button-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .cta-button {
+            background: var(--button-bg-color);
+            color: var(--button-text-color);
+            padding: var(--button-padding);
+            font-size: var(--button-font-size);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--hover-transition);
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .cta-button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                min-height: var(--header-height-mobile);
+                padding: var(--header-padding-mobile);
+            }
+            
+            .nav-desktop {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-mobile {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+            }
+
+            /* Seção 1 Mobile */
+            .section-hero {
+                height: auto;
+                min-height: 80vh;
+            }
+
+            .hero-text-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 30px;
+            }
+
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .hero-button-container {
+                margin-top: 20px;
+            }
+        }
+        /* SEÇÃO 2 - QUEM SOU EU */
+        .section-about {
+            padding: 80px 20px;
+            background: #fff;
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-rows: auto 1fr;
+            gap: 60px;
+        }
+
+        .about-header {
+            text-align: left;
+        }
+
+        .about-title {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 20px;
+            margin-left: 10%;
+        }
+
+        .about-divider {
+            width: 100vw;
+            height: 3px;
+            background: var(--header-bg-color);
+            margin: 20px calc(-50vw + 50%) 0;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 35% 65%;
+            gap: 40px;
+            align-items: start;
+            padding: 0 10%; /* 10% de afastamento nas bordas */
+        }
+
+        
+
+        .about-image {
+            margin-right: 5%; /* 5% de afastamento da imagem para o texto */
+        }
+        .about-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .about-text {
+            font-size: 0.9rem;
+            line-height: 1.8;
+            color: #666;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .section-about {
+                padding: 60px 20px;
+            }
+            
+            .about-container {
+                gap: 40px;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .about-image {
+                order: 1;
+            }
+            
+            .about-text {
+                order: 2;
+                text-align: center;
+            }
+        }
+        /* SEÇÃO 3 - NOSSO PROCESSO */
+        .section-process {
+            padding: 80px 20px;
+            background: #f8f8f8;
+        }
+
+        .process-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-rows: auto 1fr;
+            gap: 60px;
+        }
+
+        .process-header {
+            text-align: left;
+        }
+
+        .process-title {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 20px;
+            margin-left: 10%;
+        }
+
+        .process-divider {
+            width: 100vw;
+            height: 2px;
+            background: var(--header-bg-color);
+            margin: 20px calc(-50vw + 50%) 0;
+        }
+
+        .process-image {
+            width: 100%;
+            height: auto;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .section-process {
+                padding: 60px 20px;
+            }
+            
+            .process-container {
+                gap: 40px;
+            }
+        }
+        /* SEÇÃO 4 - NOSSO PROCESSO PT2 */
+        .section-process-grid {
+            padding: 80px 10%; /* 10% margem esquerda e direita */
+            background: #fff;
+        }
+
+        .process-grid-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-rows: auto auto;
+            gap: 40px;
+        }
+
+        .process-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .process-item {
+            text-align: center;
+        }
+
+        .process-number {
+            font-size: 1rem;
+            font-weight: bold;
+            color: var(--header-bg-color);
+            margin-bottom: 10px;
+        }
+
+        .process-description {
+            font-size: 0.8rem;
+            color: #666;
+            line-height: 1.5;
+            text-align: left;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .section-process-grid {
+                padding: 60px 5%;
+            }
+            
+            .process-grid {
+                grid-template-rows: repeat(4, auto);
+                gap: 30px;
+            }
+            
+            .process-row {
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+        }
+        /* SEÇÃO 5 - DEMAIS SERVIÇOS */
+        .section-services {
+            padding: 80px 20px;
+            background: #f8f8f8;
+        }
+
+        .services-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-rows: auto auto auto;
+            gap: 50px;
+        }
+
+        .services-header {
+            text-align: left;
+        }
+
+        .services-title {
+            font-size: 2rem;
+            color: #333;
+            margin-left: 10%;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            align-items: stretch; 
+        }
+
+        .service-card {
+            background: #e0e0e0;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-icon {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 15px;
+        }
+
+        .service-card-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .service-card-text {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.5;
+            text-align: left;
+        }
+
+        .service-button-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .section-services {
+                padding: 60px 20px;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .services-container {
+                gap: 40px;
+            }
+        }
+        /* SEÇÃO 6 - PORTFÓLIO */
+        .section-portfolio {
+            padding: 0px 0;
+            background: #fff;
+        }
+
+        .portfolio-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-rows: auto auto auto;
+            gap: 50px;
+            padding: 0 0px;
+        }
+
+        .portfolio-header {
+            text-align: left;
+        }
+
+        .portfolio-title {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 20px;
+            margin-left: 10%;
+        }
+
+        .portfolio-divider {
+            width: 100vw;
+            height: 2px;
+            background: var(--header-bg-color);
+            margin: 20px calc(-50vw + 50%) 0;
+        }
+
+        .portfolio-progress {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        .portfolio-stats {
+            background-image: url('images/portbg.png');
+            background-size: cover;
+            background-position: center;
+            padding: 60px 25%;
+            margin: 0 -50vw; /* Margens negativas */
+            position: relative;
+            left: 50%;
+            right: 50%;
+            width: 100vw;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+            color: white;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #FFB000;
+            margin-bottom: 10px;
+        }
+
+        .stat-text {
+            font-size: 1.1rem;
+            color: white;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .section-portfolio {
+                padding: 60px 0;
+            }
+            
+            .portfolio-stats {
+                padding: 40px 20px; /* Remove os espaços vazios laterais */
+            }
+            
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+        }
+        /* SEÇÃO 7 - BLOG E FORMULÁRIO */
+        .section-blog-form {
+            padding: 80px 20px;
+            background: #fff;
+        }
+
+        .blog-form-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-rows: auto auto auto auto;
+            gap: 50px;
+        }
+
+        .blog-header {
+            text-align: left;
+        }
+
+        .blog-title {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 20px;
+            margin-left: 10%;
+        }
+
+        .blog-divider {
+            width: 100vw;
+            height: 2px;
+            background: var(--header-bg-color);
+            margin: 20px calc(-50vw + 50%) 0;
+        }
+
+        .blog-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .blog-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #666;
+        }
+
+        .blog-posts {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .blog-post {
+            position: relative;
+        }
+
+        .blog-post-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .blog-post-button {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            background: var(--header-bg-color);
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .blog-button-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .form-section {
+            display: grid;
+            grid-template-columns: 40% 60%;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .form-content {
+            padding-right: 20px;
+        }
+
+        .form-title {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: normal;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-input {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--header-bg-color);
+        }
+
+        .form-button {
+            align-self: flex-end;
+            background: var(--header-bg-color);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .form-image {
+            background-image: url('images/blogbg.png');
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+            border-radius: 10px;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .section-blog-form {
+                padding: 60px 20px;
+            }
+            
+            .blog-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .blog-posts {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .form-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-image {
+                display: none; /* Esconde a imagem no mobile */
+            }
+            
+            .form-content {
+                padding-right: 0;
+            }
+        }
+        /* FOOTER */
+        .footer {
+            background: var(--header-bg-color);
+            color: var(--header-text-color);
+            padding: 60px 20px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .footer-contact-title {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            font-weight: normal;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+
+        .contact-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .contact-text {
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .footer-logo {
+            text-align: center;
+        }
+
+        .footer-logo-img {
+            height: 80px;
+            width: auto;
+            margin-bottom: 30px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .social-icon {
+            width: 32px;
+            height: 32px;
+            transition: var(--hover-transition);
+        }
+
+        .social-icon:hover {
+            opacity: 0.8;
+        }
+
+        .footer-follow {
+            text-align: center;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .footer {
+                padding: 40px 20px;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+            
+            .contact-item {
+                justify-content: center;
+            }
+            
+            .social-links {
+                gap: 15px;
+            }
+        }
+        /* ANIMAÇÕES */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Classes de animação */
+        .animate-fade-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .animate-fade-left {
+            animation: fadeInLeft 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .animate-fade-right {
+            animation: fadeInRight 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .animate-zoom-in {
+            animation: zoomIn 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        /* Delay para animação em sequência */
+        .animate-delay-1 { animation-delay: 0.2s; }
+        .animate-delay-2 { animation-delay: 0.4s; }
+        .animate-delay-3 { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <nav class="nav-desktop">
+                <a href="#home" class="logo-link">
+                    <img src="images/logohead.png" alt="Logo" class="logo">
+                </a>
+                <a href="#home">Home</a>
+                <a href="#projetos">Projetos</a>
+                <a href="#sobre">Sobre</a>
+                <a href="#blog">Blog</a>
+                <a href="#contato">Contato</a>
+            </nav>
+
+            <nav class="nav-mobile">
+                <a href="#home" class="logo-link">
+                    <img src="images/logohead.png" alt="Logo" class="logo">
+                </a>
+                <button class="menu-toggle">☰</button>
+                <div class="mobile-menu">
+                    <a href="#home">Home</a>
+                    <a href="#projetos">Projetos</a>
+                    <a href="#sobre">Sobre</a>
+                    <a href="#blog">Blog</a>
+                    <a href="#contato">Contato</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- SEÇÃO 1 - INÍCIO -->
+    <section id="home" class="section-hero">
+        <div class="hero-content">
+            <div class="hero-text-container animate-fade-up">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        "Designer Afetivo e <span class="bold">Personalizado</span>"
+                    </h1>
+                    <p class="hero-subtitle">
+                        Studio Ariane Oliveira
+                    </p>
+                </div>
+                <div class="hero-image">
+                    <!-- Coluna vazia para desktop -->
+                </div>
+            </div>
+            <div class="hero-button-container animate-zoom-in">
+                <a href="https://wa.link/142yqn" target="_blank" class="cta-button">Quero uma Consulta</a>
+            </div>
+        </div>
+    </section>
+    <!-- SEÇÃO 2 - QUEM SOU EU -->
+    <section id="sobre" class="section-about">
+        <div class="about-container">
+            <div class="about-header animate-fade-left">
+                <h2 class="about-title">Quem sou eu</h2>
+                <div class="about-divider"></div>
+            </div>
+            <div class="about-content animate-fade-right animate-delay-1">
+                <div class="about-image">
+                    <img src="images/Sobre.png" alt="Sobre mim">
+                </div>
+                <div class="about-text">
+                    <p><b>Ariane Oliveira</b></p>
+                    <p>
+                        Ariane Oliveira é paulistana, graduada em Design de Interiores pelo Instituto Brasileiro de Design de Interiores e em Arquitetura e Urbanismo pela Universidade Anhembi Morumbi, com especialização em Design de Interiores pela Universidade Belas Artes.
+                    </p>
+                    <p>
+                        Durante sua formação, atuou como estagiária em grandes e renomados escritórios de arquitetura, além da 2 maior empresa do ramo imobiliário do Brasil, a Cyrela.
+                        Em 2019, iniciou a atuação com projetos autorais, realizando desde a concepção do conceito de projeto até a entrega final da obra.
+                    </p>
+                    <p>
+                        Através de um briefing minucioso, inicia-se o processo de desenvolvimento de um projeto 100% personalizado, sempre se adequando às necessidades e desejos de cada cliente. 
+                        Cada projeto dispõe de imagens 3D realistas, a fim de facilitar a visualização e pranchas técnicas, que garantem as informações necessárias para uma boa execução de serviços. 
+                    </p>
+                    <p>
+                        Além disso, todos os serviços prestados contam com cronogramas detalhados a serem seguidos por nossa equipe para que, assim, todo o processo seja garantido dentro do prazo esperado.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- SEÇÃO 3 - NOSSO PROCESSO -->
+    <section id="projetos" class="section-process">
+        <div class="process-container">
+            <div class="process-header animate-fade-left">
+                <h2 class="process-title">Nosso Processo</h2>
+                <div class="process-divider"></div>
+            </div>
+            <div class="process-content animate-zoom-in">
+                <img src="images/processo.png" alt="Nosso processo" class="process-image">
+            </div>
+        </div>
+    </section>
+    <!-- SEÇÃO 4 - NOSSO PROCESSO PT2 -->
+    <section class="section-process-grid">
+        <div class="process-grid-container animate-fade-left">
+            <div class="process-grid">
+                <!-- Primeira linha -->
+                <div class="process-row">
+                    <div class="process-item animate-fade-up animate-delay-1">
+                        <p class="process-number">01 - PSICOBRIEFING</p>
+                        <p class="process-description">O Psicobriefing é para identificar com clareza o estilo e o seu gostos. O objetivo nessa fase é criar um projeto que atenda aos desejos e necessidades de todos os usuários e que esteja dentro das suas previsões financeiras. </p>
+                    </div>
+                    <div class="process-item animate-fade-up animate-delay-2">
+                        <p class="process-number">02 - REUNIÃO DE BOAS-VINDAS</p>
+                        <p class="process-description">Trazemos referências para explicar conceitos que usamos em nossos projetos. Nessa etapa, alinhamos ideias, objetivos e desejos para criar espaços harmoniosos e aconchegantes. Mais que decorar, buscamos narrativas visuais que contem a história de quem ali habita!</p>
+                    </div>
+                    <div class="process-item animate-fade-up animate-delay-3">
+                        <p class="process-number">03 - LEVANTAMENTO</p>
+                        <p class="process-description">Vamos até o seu imóvel para analisar os pontos importantes já existentes a serem considerados durante a elaboração do projeto(desde vigas a pontos elétricos,pontos hidráulicos, desníveis, entre outros) para que o mesmo seja desenvolvido corretamente.</p>
+                    </div>
+                    <div class="process-item">
+                        <p class="process-number animate-fade-up animate-delay-3">04 - ESTUDO PRELIMINAR</p>
+                        <p class="process-description">Verificamos todas as variáveis, como necessidades e investimentos, e iniciamos a criação do projeto personalizado. Aqui, surgem as propostas de materiais e elementos a serem utilizados, buscando alcançar o melhor resultado.</p>
+                    </div>
+                </div>
+                <!-- Segunda linha -->
+                <div class="process-row">
+                    <div class="process-item animate-fade-up animate-delay-1">
+                        <p class="process-number">05 - PROJETO - PROPOSTA</p>
+                        <p class="process-description">Enviamos uma apresentação em PDF com o conceito do projeto em 3D, cores, texturas e detalhes da proposta. Depois, realizamos uma reunião para alinhar acabamentos, mobiliários e itens finais que tornarão o sonho do cliente realidade!</p>
+                    </div>
+                    <div class="process-item animate-fade-up animate-delay-2">
+                        <p class="process-number">06 - PROJETO EXECUTIVO</p>
+                        <p class="process-description">Enviamos uma apresentação, em PDF, com todos os detalhes do projeto, incluindo imagens realistas em 3D, detalhamento dos conceitos, psicologia dos núcleos, texturas e detalhamentos técnicos, especificações de materiais e detalhes. A seguir, agendamos uma reunião para alinhar os próximos passos.</p>
+                    </div>
+                    <div class="process-item animate-fade-up animate-delay-3">
+                        <p class="process-number">07 - ASSESSÓRIA DE COMPRAS</p>
+                        <p class="process-description">Desenvolvemos uma lista de itens para compra com base nos itens especificados em projeto, contendo links com restrições de lojas e valores. Também incluímos orçamentos de empresas parceiras que confiamos.</p>
+                    </div>
+                    <div class="process-item animate-fade-up animate-delay-3">
+                        <p class="process-number">08 - ACOMPANHAMENTO DE OBRA</p>
+                        <p class="process-description">OAcompanhamos  semanal, garantia de  correta execução do projeto e assegurando um melhor controle de prazos e custos. Além disso, registramos cada etapa para maior transparência e tranquilidade.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- SEÇÃO 5 - DEMAIS SERVIÇOS -->
+    <section class="section-services">
+        <div class="services-container">
+            <div class="services-header animate-fade-left">
+                <h2 class="services-title">Demais Serviços</h2>
+            </div>
+            <div class="services-grid">
+                <!-- Card 1 -->
+                 <div>
+                    <div class="service-card animate-zoom-in animate-delay-1">
+                        <img src="images/icon1.png" alt="Ícone" class="service-icon">
+                        <h3 class="service-card-title">PROJETO ARQUITETÔNICO</h3>
+                        <p class="service-card-text">Ele é muito mais do que apenas a "planta baixa": reúne todas as informações necessárias para que uma obra seja executada corretamente, atendendo às necessidades do cliente, respeitando normas técnicas e garantindo estética, funcionalidade e segurança.</p>
+                    </div>
+                    <p>Personalizado</p>
+                </div>
+                <!-- Card 2 -->
+                 <div>
+                    <div class="service-card animate-zoom-in animate-delay-2">
+                        <img src="images/icon2.png" alt="Ícone" class="service-icon">
+                        <h3 class="service-card-title">ASSESSÓRIA DE INTERIORES</h3>
+                        <p class="service-card-text">Projetamos soluções inteligentes que sejam estéticas, práticas e bem-estar, mesmo em projetos de pequeno porte. Ideal para quem quer um resultado profissional sem precisar passar por uma reforma completa. Orientação profissional em escolhas de cores, acabamentos... economizando tempo e dinheiro.</p>
+                    </div>
+                    <p>A partir de R$600,00</p>
+                </div>
+                <!-- Card 3 -->
+                <div>
+                    <div class="service-card animate-zoom-in animate-delay-3">
+                        <img src="images/icon3.png" alt="Ícone" class="service-icon">
+                        <h3 class="service-card-title">VISTORIA DE ENTREGA DE CHAVES</h3>
+                        <p class="service-card-text">Seu imóvel pronto para morar sem dor de cabeça! Na hora de receber seu apartamento, cada detalhe faz diferença. A vistoria garante que tudo esteja conforme o contrato: acabamentos, instalações, funcionamento elétrico e hidráulico, além da verificação de possíveis falhas que a construtora deva corrigir.</p>
+                    </div>
+                    <p>A partir de R$700,00</p>
+                </div>
+            </div>
+            <div class="service-button-container animate-zoom-in animate-delay-3">
+                <a href="https://wa.link/142yqn" target="_blank" class="cta-button">Solicitar um Orçamento</a>
+            </div>
+        </div>
+    </section>
+    <!-- SEÇÃO 6 - PORTFÓLIO -->
+    <section class="section-portfolio">
+        <div class="portfolio-container">
+            <div class="portfolio-header animate-fade-left">
+                <h2 class="portfolio-title">Portfólio</h2>
+                <div class="portfolio-divider"></div>
+            </div>
+            <div class="portfolio-progress">
+                <p>Trabalho em progresso</p>
+            </div>
+            <div class="portfolio-stats animate-fade-up">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">1.582</div>
+                        <p class="stat-text">Residenciais</p>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">20</div>
+                        <p class="stat-text">Comerciais</p>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">03</div>
+                        <p class="stat-text">Países</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- SEÇÃO 7 - BLOG E FORMULÁRIO -->
+    <section id="blog" class="section-blog-form">
+        <div class="blog-form-container">
+            <!-- Row 1: Título e separador -->
+            <div class="blog-header animate-fade-left">
+                <h2 class="blog-title">Blog</h2>
+                <div class="blog-divider"></div>
+            </div>
+
+            <!-- Row 2: Texto + Posts -->
+            <div class="blog-content animate-fade-left">
+                <div class="blog-text">
+                    <p>TRANSFORMAMOS CASAS EM LARES.</p>
+                    <p>Esses são alguns artigos que escrevemos para explicar um pouco mais alguns conceitos que utilizamos em nossos trabalhos, onde buscamos sempre tornar o local mais harmonioso e aconchegante, do jeitinho que você quer! “Não é apenas sobre decorar, mas sobre criar narrativas visuais que contam a história de quem ali habita”</p>
+                </div>
+                <div class="blog-posts animate-fade-right animate-delay-1">
+                    <div class="blog-post">
+                        <img src="images/blogimg1.png" alt="Post 1" class="blog-post-image">
+                        <a href="#" class="blog-post-button">Saiba mais</a>
+                    </div>
+                    <div class="blog-post">
+                        <img src="images/blogimg2.png" alt="Post 2" class="blog-post-image">
+                        <a href="#" class="blog-post-button">Saiba mais</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 3: Botão -->
+            <div  id="contato" class="blog-button-container animate-fade-up">
+                <a href="https://wa.link/142yqn" target="_blank" class="cta-button">Solicite um Orçamento</a>
+            </div>
+
+            <!-- Row 4: Formulário -->
+            <div class="form-section animate-fade-up">
+                <div class="form-content">
+                    <h3 class="form-title">Cadastre e ganhe um <b>e-book</b> exclusivo.</h3>
+                    <form class="contact-form" id="contactForm">
+                        <input type="text" name="nome" placeholder="Nome" class="form-input" required>
+                        <input type="email" name="email" placeholder="Email" class="form-input" required>
+                        <textarea name="mensagem" placeholder="Mensagem (opcional)" class="form-input" rows="4"></textarea>
+                        <button type="submit" class="form-button">Enviar</button>
+                    </form>
+                </div>
+                <div class="form-image"></div>
+            </div>
+        </div>
+    </section>
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- Coluna 1: Contato -->
+            <div class="footer-contact">
+                <h3 class="footer-contact-title">Vamos criar um projeto único?</h3>
+                <div class="contact-item">
+                    <img src="images/icon4.png" alt="Telefone" class="contact-icon">
+                    <div class="contact-text">
+                        <p><b>WhatsApp</b></p>
+                        <p>(11) 98237-7755</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <img src="images/icon5.png" alt="Email" class="contact-icon">
+                    <div class="contact-text">
+                        <p><b>Onde Estamos</b></p>
+                        <p>Zona Sul - São Paulo</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <img src="images/icon6.png" alt="Localização" class="contact-icon">
+                    <div class="contact-text">
+                        <p><b>E-mail</b></p>
+                        <p>contato@studioarianeoliveira.com.br</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coluna 2: Logo e Redes Sociais -->
+            <div class="footer-logo">
+                <img src="images/logohead.png" alt="Logo" class="footer-logo-img">
+                <div class="social-links">
+                    <a href="https://www.facebook.com/p/Studio-Ariane-Oliveira-Interiores-61556521340812/" target="_blank"><img src="images/icon7.png" alt="Facebook" class="social-icon"></a>
+                    <a href="https://www.instagram.com/arianeoliveira.arquiteta/" target="_blank"><img src="images/icon8.png" alt="Instagram" class="social-icon"></a>
+                </div>
+                <p class="footer-follow">Nos siga nas redes sociais</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.mobile-menu').classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.mobile-menu').classList.remove('active');
+            });
+        });
+        // Validação e envio do formulário
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const nome = this.nome.value.trim();
+            const email = this.email.value.trim();
+            const mensagem = this.mensagem.value.trim();
+            
+            // Validação
+            if (!nome) {
+                alert('Por favor, preencha seu nome.');
+                return;
+            }
+            
+            if (!email || !isValidEmail(email)) {
+                alert('Por favor, preencha um email válido.');
+                return;
+            }
+
+            // Mostrar loading
+            const btn = this.querySelector('.form-button');
+            const btnOriginal = btn.innerHTML;
+            btn.innerHTML = 'Enviando...';
+            btn.disabled = true;
+
+            // Aqui você vai colocar a URL do Google Apps Script quando tiver
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbxZtT5wdD5ksI-156dMTCoC3vAKuwYhqm1BoIS-0RQh_lx36w-hJEbXkaJhyuptmkxL/exec';
+            
+            // Enviar para Google Apps Script
+            fetch(scriptURL, {
+                method: 'POST',
+                body: JSON.stringify({ nome, email, mensagem }),
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Formulário enviado com sucesso! Verifique seu email para receber o e-book.');
+                    this.reset();
+                } else {
+                    throw new Error(data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Erro ao enviar formulário. Tente novamente.');
+            })
+            .finally(() => {
+                btn.innerHTML = btnOriginal;
+                btn.disabled = false;
+            });
+        });
+
+        // Função de validação de email (ADICIONE ESTA FUNÇÃO)
+        function isValidEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+        // Observer para animações
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observar todos os elementos com classes de animação
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('[class*="animate-"]');
+            animatedElements.forEach(el => {
+                el.style.animationPlayState = 'paused';
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
